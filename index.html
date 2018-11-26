@@ -29,7 +29,7 @@
 
 
 	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600,400italic,700' rel='stylesheet' type='text/css'>
-	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<!-- Animate.css -->
 	<link rel="stylesheet" href="css/animate.css">
 	<!-- Icomoon Icon Fonts-->
@@ -319,7 +319,7 @@
 					<h2 class=" left-border to-animate">Services</h2>
 					<div class="row">
 						<div class="col-md-8 subtext to-animate">
-							<h3>TigerAware is a cross-platform system for collecting information from participants in real life over time. Though the system is inspired by applications in Ecological Momentary Assessment (EMA), it can be used in research studies spanning the social sciences, campus climate tracking, and drug piloting.</h3>
+							<h3>TigerAware is a cross-platform system for collecting information from participants in real life over time. Though the system is inspired by applications in Ecological Momentary Assessment (EMA), it can be used in research studies spanning many domains. This includes the social and medical sciences (including psychological studies on emotion, behavior, and substance use), campus climate tracking, and pharmaceutical trials.</h3>
 						</div>
 					</div>
 				</div>
@@ -554,40 +554,92 @@
 				<div class="col-md-6 to-animate">
 					<h3>Contact Info</h3>
 					<ul class="fh5co-contact-info">
-						<li class="fh5co-contact-address ">
+<!-- 						<li class="fh5co-contact-address ">
 							<i class="icon-home"></i>
 							Our address here
-						</li>
-						<li><i class="icon-phone"></i> Our phone number here</li>
-						<li><i class="icon-envelope"></i>Our email number here</li>
+						</li> -->
+						<!-- <li><i class="icon-phone"></i> Our phone number here</li> -->
+						<li><i class="icon-envelope"></i>MUTigerAware@gmail.com</li>
 						<li><i class="icon-globe"></i> <a href="http://tigeraware.com" target="_blank">http://tigeraware.com</a></li>
 					</ul>
 				</div>
 
 				<div class="col-md-6 to-animate">
 					<h3>Demo Requests</h3>
-					<div class="form-group ">
-						<label for="name" class="sr-only">Name</label>
-						<input id="name" class="form-control" placeholder="Name" type="text">
-					</div>
-					<div class="form-group ">
-						<label for="email" class="sr-only">Email</label>
-						<input id="email" class="form-control" placeholder="Email" type="email">
-					</div>
-		<!-- 			<div class="form-group ">
-						<label for="phone" class="sr-only">Phone</label>
-						<input id="phone" class="form-control" placeholder="Phone" type="text">
-					</div>
-					<div class="form-group ">
-						<label for="message" class="sr-only">Message</label>
-						<textarea name="" id="message" cols="30" rows="5" class="form-control" placeholder="Message"></textarea>
-					</div> -->
-					<div class="form-group ">
-						<input class="btn btn-primary btn-lg" value="Submit" type="submit">
-					</div>
+					<form id="contact-form">
+						<div class="form-group ">
+							<label for="name" class="sr-only">Name</label>
+							<input id="name" class="form-control" placeholder="Name" type="text">
+						</div>
+						<div class="form-group ">
+							<label for="email" class="sr-only">Email</label>
+							<input id="email" class="form-control" placeholder="Email" type="email">
+						</div>
+			<!-- 			<div class="form-group ">
+							<label for="phone" class="sr-only">Phone</label>
+							<input id="phone" class="form-control" placeholder="Phone" type="text">
+						</div>
+						<div class="form-group ">
+							<label for="message" class="sr-only">Message</label>
+							<textarea name="" id="message" cols="30" rows="5" class="form-control" placeholder="Message"></textarea>
+						</div> -->
+						<div class="form-group ">
+							<input class="btn btn-primary btn-lg" id ="submit-form" value="Submit" type="submit">
+						</div>
+						</div>
+					</form>
+					<script type="text/javascript">
+						
+						var $form = $('form#contact-form'),
+						url = 'https://script.google.com/macros/s/AKfycbz_eh9Vq2bvPqoyF_X8UIMzLDArTfvaR_492n0KzExHQkJlwIM/exec'
+
+						$('#submit-form').on('click', function(e) {
+							e.preventDefault();
+							// console.log($('#name').val())
+							// console.log($('#email').val())
+							var jqxhr = $.ajax({
+								url: url,
+								method: "GET",
+								dataType: "json",
+								data: {
+									name: $('#name').val(),
+									email: $('#email').val()
+								},
+								success: function(data) {
+									$('#modal-success').modal('toggle');
+								},
+								error: function(data) {
+									$('#modal-failure').modal('toggle');
+									console.log(data);
+								}
+							})
+						})
+					</script>
+				</div>
+				<div class="modal fade" id="modal-success" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+						<div class="modal-header">
+							Thanks!
+						</div>
+						<div class="modal-body">
+							Thank you for your interest. We will reach out to you shortly. 
+						</div>
+						</div>
 					</div>
 				</div>
-
+				<div class="modal fade" id="modal-failure" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+						<div class="modal-header">
+							Whoops!
+						</div>
+						<div class="modal-body">
+							An error has occured, please try again. 
+						</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -630,8 +682,8 @@
 	<script src="js/jquery.magnific-popup.min.js"></script>
 	<script src="js/magnific-popup-options.js"></script>
 	<!-- Google Map -->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCefOgb1ZWqYtj7raVSmN4PL2WkTrc-KyA&sensor=false"></script>
-	<script src="js/google_map.js"></script>
+	<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCefOgb1ZWqYtj7raVSmN4PL2WkTrc-KyA&sensor=false"></script> -->
+	<!-- <script src="js/google_map.js"></script> -->
 
 	<!-- For demo purposes only styleswitcher ( You may delete this anytime ) -->
 	<script src="js/jquery.style.switcher.js"></script>
