@@ -474,33 +474,62 @@
 
 				<div class="col-md-6 to-animate">
 					<h3>Demo Requests</h3>
-					<form id="contact-form">
-						<div class="form-group ">
-							<label for="name" class="sr-only">Name</label>
-							<input id="name" class="form-control" placeholder="Name" type="text">
+					<form id="contact-form" class="simple-form" action="#">
+						<div class="form-group">
+							<label for="contactName" class="sr-only">Name</label>
+							<input id="contactName" class="form-control" placeholder="Name" type="text" required>
 						</div>
 						<div class="form-group ">
 							<label for="email" class="sr-only">Email</label>
-							<input id="email" class="form-control" placeholder="Email" type="email">
+							<input id="email" class="form-control" placeholder="Email" type="email" required>
 						</div>
 						<div class="form-group ">
 							<label for="message" class="sr-only">Message</label>
-							<textarea name="" id="message" cols="30" rows="5" class="form-control" placeholder="Message"></textarea>
+							<textarea name="" id="message" cols="30" rows="5" class="form-control" placeholder="Message" required></textarea>
 						</div> 
+						<br/>
+						<div class="g-recaptcha" data-callback="recaptchaCallback" data-sitekey="6LcbhsoUAAAAABcgm-fxC-wEzVk0M1nD78hjWY2l"></div>
+						<br/>
 						<div class="form-group ">
-							<input class="btn btn-primary btn-lg" id ="submit-form" value="Submit" type="submit">
+							<input class="btn btn-primary btn-lg" id ="submit-form" value="Submit" type="submit" disabled>
 						</div>
 						</div>
 					</form>
 					<script type="text/javascript">
 						
+						let validCaptcha = false;
+						function recaptchaCallback(){
+							console.log('callback')
+							validCaptcha = true;
+      						checkValid()
+						}
+						function checkValid(){
+							console.log(validCaptcha)
+							if (email.checkValidity() && message.checkValidity() && 
+								contactName.checkValidity() && validCaptcha) {
+								$('#submit-form').prop('disabled', false);  
+							} else {
+								$('#submit-form').prop('disabled', 'disabled');
+							}
+						}
+
+						$('input textarea').on('blur keyup', function() {
+							checkValid()
+						});
+
 						var $form = $('form#contact-form'),
 						url = 'https://script.google.com/macros/s/AKfycbz_eh9Vq2bvPqoyF_X8UIMzLDArTfvaR_492n0KzExHQkJlwIM/exec'
-
 						$('#submit-form').on('click', function(e) {
+							$('#modal-success').modal('toggle');
+							return;// temp disable messge
 							e.preventDefault();
-							// console.log($('#name').val())
-							// console.log($('#email').val())
+
+							var recaptcha = $("#g-recaptcha-response").val();
+							if (recaptcha === "") {
+								event.preventDefault();
+								alert("Please check the recaptcha");
+								return;
+							}
 							var jqxhr = $.ajax({
 								url: url,
 								method: "GET",
@@ -592,6 +621,9 @@
 	<!-- Magnific Popup -->
 	<script src="js/jquery.magnific-popup.min.js"></script>
 	<script src="js/magnific-popup-options.js"></script>
+
+	<!-- Recaptcha -->
+	<script src="https://www.google.com/recaptcha/api.js"></script>
 
 	<!-- Main JS (Do not remove) -->
 	<script src="js/main.js"></script>
