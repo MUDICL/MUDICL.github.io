@@ -352,7 +352,7 @@
 			<div class="row">
 				<div class="col-md-4 text-center">
 					<div class="to-animate">
-						<div><img style="border-radius:50%;box-shadow: 0 0 4px rgba(0, 0, 0, .3);" height="150" ></div>
+						<div><img style="border-radius:50%;box-shadow: 0 0 4px rgba(0, 0, 0, .3);" height="150" src="images/willpic.png"></div>
 						<p>
 						<em>Will Morrison–President</em>
 						</p>
@@ -488,7 +488,8 @@
 							<textarea name="" id="message" cols="30" rows="5" class="form-control" placeholder="Message" required></textarea>
 						</div> 
 						<br/>
-						<div class="g-recaptcha" data-callback="recaptchaCallback" data-sitekey="6LcbhsoUAAAAABcgm-fxC-wEzVk0M1nD78hjWY2l"></div>
+						
+						<div class="g-recaptcha" data-callback="recaptchaCallback" data-expired-callback="resetCallback" data-sitekey="6LcbhsoUAAAAABcgm-fxC-wEzVk0M1nD78hjWY2l"></div>
 						<br/>
 						<div class="form-group ">
 							<input class="btn btn-primary btn-lg" id ="submit-form" value="Submit" type="submit" disabled>
@@ -500,9 +501,9 @@
 						let validCaptcha = false;
 						function recaptchaCallback(){
 							validCaptcha = true;
-      						checkValid()
+      						updateValid()
 						}
-						function checkValid(){
+						function updateValid(){
 							if (email.checkValidity() && message.checkValidity() && 
 								contactName.checkValidity() && validCaptcha) {
 								$('#submit-form').prop('disabled', false);  
@@ -511,8 +512,17 @@
 							}
 						}
 
-						$('input textarea').on('keyup', function() {
-							checkValid()
+						function resetCallback(){
+							validCaptcha = false;
+							updateValid()
+						}
+
+						$('input').on('blur keyup', function() {
+							updateValid();
+						});
+
+						$('textarea').on('blur keyup', function() {
+							updateValid();
 						});
 
 						var $form = $('form#contact-form'),
@@ -520,22 +530,17 @@
 						$('#submit-form').on('click', function(e) {
 							e.preventDefault();
 
-							var recaptcha = $("#g-recaptcha-response").val();
-							if (recaptcha === "") {
-								event.preventDefault();
-								alert("Please check the recaptcha");
-								return;
-							}
 							var jqxhr = $.ajax({
 								url: url,
 								method: "GET",
 								dataType: "json",
 								data: {
-									name: $('#name').val(),
+									name: $('contactName').val(),
 									email: $('#email').val(),
 									message: $('#message').val()
 								},
 								success: function(data) {
+									$("#contact-form").trigger('reset');
 									$('#modal-success').modal('toggle');
 								},
 								error: function(data) {
