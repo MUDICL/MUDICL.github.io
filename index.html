@@ -499,12 +499,10 @@
 						
 						let validCaptcha = false;
 						function recaptchaCallback(){
-							console.log('callback')
 							validCaptcha = true;
       						checkValid()
 						}
 						function checkValid(){
-							console.log(validCaptcha)
 							if (email.checkValidity() && message.checkValidity() && 
 								contactName.checkValidity() && validCaptcha) {
 								$('#submit-form').prop('disabled', false);  
@@ -513,15 +511,13 @@
 							}
 						}
 
-						$('input textarea').on('blur keyup', function() {
+						$('input textarea').on('keyup', function() {
 							checkValid()
 						});
 
 						var $form = $('form#contact-form'),
 						url = 'https://script.google.com/macros/s/AKfycbz_eh9Vq2bvPqoyF_X8UIMzLDArTfvaR_492n0KzExHQkJlwIM/exec'
 						$('#submit-form').on('click', function(e) {
-							$('#modal-success').modal('toggle');
-							return;// temp disable messge
 							e.preventDefault();
 
 							var recaptcha = $("#g-recaptcha-response").val();
