@@ -5,24 +5,40 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 	<head>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-164252936-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'UA-164252936-1');
+	</script>
+
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>TigerAware</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="A mobile-based data collection platform for collecting participant experiences in real time, over time." />
-	<meta name="keywords" content="Ecological Momentary Assessment, mobile, data collection, mobile health" />
-	<meta name="author" content="TigerAware Labs" />
+	<meta name="description" content="A mobile-based data collection platform for collecting participant experiences in real time, over time."/>
+	<meta name="keywords" content="Ecological Momentary Assessment, mobile, data collection, mobile health"/>
+	<meta name="author" content="TigerAware Labs"/>
 
   	<!-- Facebook and Twitter integration -->
-	<meta property="og:title" content="A mobile-based data collection platform for collecting participant experiences in real time, over time."/>
-	<meta property="og:image" content=""/>
-	<meta property="og:url" content=""/>
-	<meta property="og:site_name" content=""/>
-	<meta property="og:description" content=""/>
-	<meta name="twitter:title" content="" />
-	<meta name="twitter:image" content="" />
-	<meta name="twitter:url" content="" />
-	<meta name="twitter:card" content="" />
+	<meta property="og:title" content="TigerAware Labs"/>
+  <meta property="og:image" content="https://tigeraware.com/images/logo3.png">
+  <meta property="og:image:width" content="1552"/>
+  <meta property="og:image:height" content="1000"/>
+  <meta property="og:type" content="website"/>
+	<meta property="og:url" content="https://tigeraware.com"/>
+	<meta property="og:site_name" content="TigerAware"/>
+	<meta property="og:description" content="A mobile-based data collection platform for collecting participant experiences in real time, over time."/>
+
+	<meta name="twitter:title" content="TigerAware Labs"/>
+	<meta name="twitter:image" content="https://tigeraware.com/images/logo3.png"/>
+	<meta name="twitter:url" content="https://tigeraware.com"/>
+	<meta name="twitter:card" content="summary"/>
+	<meta name="twitter:site" content="@TigerAware"/>
+  <meta name="twitter:creator" content="@TigerAware"/>
 
 	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 	<link rel="shortcut icon" href="favicon.png">
@@ -548,7 +564,7 @@
 								method: "GET",
 								dataType: "json",
 								data: {
-									name: $('contactName').val(),
+									name: $('#contactName').val(),
 									email: $('#email').val(),
 									message: $('#message').val()
 								},
