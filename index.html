@@ -566,13 +566,12 @@
 						url = 'https://script.google.com/macros/s/AKfycbz_eh9Vq2bvPqoyF_X8UIMzLDArTfvaR_492n0KzExHQkJlwIM/exec'
 						$('#submit-form').on('click', function(e) {
 							e.preventDefault();
-
 							var jqxhr = $.ajax({
 								url: url,
 								method: "GET",
 								dataType: "json",
 								data: {
-									name: $('#contactName').val(),
+									contactName: $('#contactName').val(),
 									email: $('#email').val(),
 									message: $('#message').val()
 								},
